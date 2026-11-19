@@ -1,0 +1,254 @@
+@import '@fontsource/be-vietnam-pro/400.css';
+@import '@fontsource/be-vietnam-pro/500.css';
+@import '@fontsource/be-vietnam-pro/600.css';
+@import '@fontsource/be-vietnam-pro/700.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
+@import '@fontsource/jetbrains-mono/600.css';
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --color-vermilion: #d9381e;
+  --color-vermilion-hover: #b92b14;
+  --color-vermilion-soft: #fcece9;
+  --color-jade: #0d7a5f;
+  --color-amber: #c67d08;
+  --color-ink: #111315;
+  --color-ink-muted: #5a6270;
+  --color-paper: #ffffff;
+  --color-paper-subtle: #f6f7f9;
+  --color-hairline: #e2e5ea;
+
+  --color-obsidian: #0d0f12;
+  --color-obsidian-surface: #15181e;
+  --color-obsidian-elevated: #1c2028;
+  --color-obsidian-border: #262b35;
+  --color-obsidian-ink: #f2f4f7;
+  --color-obsidian-muted: #8e96a4;
+}
+
+/* Theme Preset Overrides (Live synced across Main App & Floating Desktop Widget) */
+:root[data-theme='pure-light'] {
+  --color-vermilion: #1e96f0;
+  --color-vermilion-hover: #1b85d6;
+  --color-vermilion-soft: #eff6ff;
+  --color-jade: #0d9488;
+  --color-amber: #d97706;
+  --color-ink: #1f2937;
+  --color-ink-muted: #4b5563;
+  --color-paper: #ffffff;
+  --color-paper-subtle: #ffffff;
+  --color-hairline: #d5d9e0;
+}
+
+:root[data-theme='midnight-dark'] {
+  --color-vermilion: #34d399;
+  --color-vermilion-hover: #2ec48d;
+  --color-vermilion-soft: #0c2c20;
+  --color-jade: #22c55e;
+  --color-amber: #f59e0b;
+  --color-obsidian: #0a0b0f;
+  --color-obsidian-surface: #12141a;
+  --color-obsidian-elevated: #1a1d26;
+  --color-obsidian-border: #22262f;
+  --color-obsidian-ink: #f4f4f5;
+  --color-obsidian-muted: #9ca3af;
+}
+
+:root[data-theme='aurora-night'] {
+  --color-vermilion: #7a4df7;
+  --color-vermilion-hover: #6c41e0;
+  --color-vermilion-soft: #1d1b45;
+  --color-jade: #0fa8a0;
+  --color-amber: #f59e0b;
+  --color-obsidian: #12142e;
+  --color-obsidian-surface: #1f224a;
+  --color-obsidian-elevated: #292d5e;
+  --color-obsidian-border: #383e72;
+  --color-obsidian-ink: #eaebff;
+  --color-obsidian-muted: #9aa1d9;
+}
+
+:root[data-theme='monochrome'] {
+  --color-vermilion: #111111;
+  --color-vermilion-hover: #222222;
+  --color-vermilion-soft: #e5e5e5;
+  --color-jade: #333333;
+  --color-amber: #555555;
+  --color-ink: #111111;
+  --color-ink-muted: #555555;
+  --color-paper: #ffffff;
+  --color-paper-subtle: #f3f3ef;
+  --color-hairline: #111111;
+}
+
+:root[data-theme='jade-forest'] {
+  --color-vermilion: #0d7a5f;
+  --color-vermilion-hover: #0a5f4a;
+  --color-vermilion-soft: #e6f4ef;
+  --color-jade: #15803d;
+  --color-amber: #b45309;
+  --color-ink: #0f221c;
+  --color-ink-muted: #4b635b;
+  --color-paper: #ffffff;
+  --color-paper-subtle: #f1f6f4;
+  --color-hairline: #d4e4dd;
+}
+
+:root[data-theme='vintage-paper'] {
+  --color-vermilion: #d9480f;
+  --color-vermilion-hover: #b83d0c;
+  --color-vermilion-soft: #fbf0ea;
+  --color-jade: #2f6f4e;
+  --color-amber: #a16207;
+  --color-ink: #241f1a;
+  --color-ink-muted: #6e6357;
+  --color-paper: #fffdf9;
+  --color-paper-subtle: #fbf5ec;
+  --color-hairline: #e0cdb3;
+}
+
+:root[data-theme='nordic-sea'] {
+  --color-vermilion: #1d6fe5;
+  --color-vermilion-hover: #185ec4;
+  --color-vermilion-soft: #e8f1fd;
+  --color-jade: #0f766e;
+  --color-amber: #b45309;
+  --color-ink: #0b2545;
+  --color-ink-muted: #475a73;
+  --color-paper: #ffffff;
+  --color-paper-subtle: #eef4fb;
+  --color-hairline: #c3d3e8;
+}
+
+:root[data-theme='obsidian-dark'] {
+  --color-vermilion: #3aa39b;
+  --color-vermilion-hover: #328f87;
+  --color-vermilion-soft: #142a27;
+  --color-jade: #10b981;
+  --color-amber: #eab308;
+  --color-obsidian: #1c2120;
+  --color-obsidian-surface: #131716;
+  --color-obsidian-elevated: #1a201e;
+  --color-obsidian-border: #4a524f;
+  --color-obsidian-ink: #f2f4f7;
+  --color-obsidian-muted: #959e9a;
+}
+
+:root[data-theme='forest-night'] {
+  --color-vermilion: #10b981;
+  --color-vermilion-hover: #059669;
+  --color-vermilion-soft: #122b23;
+  --color-jade: #34d399;
+  --color-amber: #eab308;
+  --color-obsidian: #09110e;
+  --color-obsidian-surface: #111d19;
+  --color-obsidian-elevated: #172722;
+  --color-obsidian-border: #20352e;
+  --color-obsidian-ink: #ebf5f0;
+  --color-obsidian-muted: #88a499;
+}
+
+/* Font Size Scales */
+:root, html {
+  font-size: 14px;
+  --btn-radius: 8px;
+}
+
+:root[data-font-size='small'], html[data-font-size='small'] {
+  font-size: 13px;
+}
+
+:root[data-font-size='medium'], html[data-font-size='medium'] {
+  font-size: 14px;
+}
+
+:root[data-font-size='large'], html[data-font-size='large'] {
+  font-size: 15.5px;
+}
+
+:root[data-font-size='xlarge'], html[data-font-size='xlarge'] {
+  font-size: 17px;
+}
+
+/* Button Radius Options */
+:root[data-button-radius='rounded'], html[data-button-radius='rounded'] {
+  --btn-radius: 8px;
+}
+
+:root[data-button-radius='pill'], html[data-button-radius='pill'] {
+  --btn-radius: 9999px;
+}
+
+:root[data-button-radius='sharp'], html[data-button-radius='sharp'] {
+  --btn-radius: 0px;
+}
+
+.btn-radius {
+  border-radius: var(--btn-radius) !important;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+    font-family: var(--font-sans);
+  }
+
+  body {
+    color: var(--color-ink);
+    background-color: var(--color-paper-subtle);
+  }
+
+  .dark body {
+    color: var(--color-obsidian-ink);
+    background-color: var(--color-obsidian);
+  }
+}
+
+.font-mono-tabular {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.widget-drag {
+  -webkit-app-region: drag;
+}
+
+.widget-no-drag {
+  -webkit-app-region: no-drag;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Crisp custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(90, 98, 112, 0.25);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(90, 98, 112, 0.45);
+}

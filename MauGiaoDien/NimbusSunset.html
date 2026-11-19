@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- NIMBUS SUNSET (mẫu 09) — nền kem ấm, bo góc lớn mềm mại, điểm nhấn cam đất -->
+  <style>
+    :root{
+      --font:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+      --bg:#fbf5ec; --surface:#fffdf9; --surface-2:#faf3e8; --hover:#fcf6ed;
+      --border:#efe2d0; --border-strong:#e0cdb3;
+      --text:#2b1d14; --muted:#7a6454;
+      --primary:#d9480f; --primary-contrast:#ffffff; --primary-soft:#ffe9db; --ring:rgba(217,72,15,.17);
+      --primary-grad:linear-gradient(135deg,#f2762e,#d03d08);
+      --ok:#2f7d3a; --ok-soft:#e3f3dc; --warn:#8f5b08; --warn-soft:#fbecc9; --bad:#b1304a; --bad-soft:#fbe6e8; --danger:#e0395a;
+      --radius:24px; --radius-sm:16px;
+      --shadow:0 2px 4px rgba(120,70,20,.04),0 14px 34px rgba(120,70,20,.09);
+      --shadow-sm:0 1px 2px rgba(120,70,20,.1);
+      --shadow-lg:0 22px 54px rgba(80,40,10,.28);
+      --sb-bg:#f6ebdc; --sb-text:#6b5444; --sb-title:#2b1d14; --sb-muted:#8f7867; --sb-border:#ecdcc6;
+      --sb-hover:#f0e1cd; --sb-active-bg:#ffffff; --sb-active-text:#b53a08; --sb-active-icon:#d9480f;
+      --sb-active-shadow:0 4px 14px rgba(150,80,20,.14);
+      --brand-bg:linear-gradient(135deg,#ffb04d,#e8541f); --brand-fg:#ffffff; --brand-shadow:0 6px 16px rgba(232,84,31,.35);
+      --avatar-bg:linear-gradient(135deg,#fde68a,#fb923c); --avatar-fg:#5b2a0a;
+      --topbar-bg:rgba(251,245,236,.86);
+      --tip-bg:#2b1d14; --tip-fg:#fff8ee; --scrim:rgba(43,29,20,.42);
+      --btn-shadow:0 8px 20px rgba(217,72,15,.3);
+    }
+  </style>
+  <?!= include('NimbusBase') ?>
+  <style>
+    /* Riêng cho Sunset: ánh hoàng hôn ở góc trang, thẻ không viền, nút tròn đầy */
+    body{background:radial-gradient(760px 360px at 100% -60px,rgba(255,150,70,.22),transparent 70%),radial-gradient(520px 300px at 0% 100%,rgba(255,120,120,.12),transparent 70%),var(--bg)}
+    .card{border-color:transparent}
+    .btn{border-radius:999px}
+    .nav a{border-radius:999px}
+    .badge{background:var(--primary);color:#fff}
+    .nav a.active .badge{background:var(--primary)}
+  </style>
+</head>
+<body>
+  <?!= include('NimbusLayout') ?>
+  <script>window.APP_BASE = <?!= JSON.stringify(baseUrl) ?>; window.APP_THEME = 'sunset';</script>
+  <?!= include('NimbusScript') ?>
+</body>
+</html>

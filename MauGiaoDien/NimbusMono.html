@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- NIMBUS MONO (mẫu 10) — đen trắng tối giản kiểu biên tập, viền đậm, bóng cứng không nhòe -->
+  <style>
+    :root{
+      --font:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+      --bg:#f3f3ef; --surface:#ffffff; --surface-2:#f7f7f3; --hover:#f5f5f1;
+      --border:#d6d6cf; --border-strong:#111111;
+      --text:#111111; --muted:#5d5d57;
+      --primary:#111111; --primary-contrast:#ffffff; --primary-soft:#ebebe5; --ring:rgba(17,17,17,.16);
+      --ok:#166534; --ok-soft:#dcf2e1; --warn:#854d0e; --warn-soft:#fbefc8; --bad:#b91c1c; --bad-soft:#fde4e4; --danger:#dc2626;
+      --radius:6px; --radius-sm:4px;
+      --shadow:3px 3px 0 #111111;
+      --shadow-sm:1px 1px 0 #111111;
+      --shadow-lg:6px 6px 0 rgba(17,17,17,.9);
+      --sb-bg:#ffffff; --sb-text:#3b3b36; --sb-title:#111111; --sb-muted:#6e6e67; --sb-border:#111111;
+      --sb-hover:#f0f0ea; --sb-active-bg:#111111; --sb-active-text:#ffffff;
+      --brand-bg:#111111; --brand-fg:#ffffff;
+      --avatar-bg:#111111; --avatar-fg:#ffffff;
+      --topbar-bg:rgba(243,243,239,.9);
+      --tip-bg:#111111; --tip-fg:#ffffff; --scrim:rgba(17,17,17,.5);
+    }
+  </style>
+  <?!= include('NimbusBase') ?>
+  <style>
+    /* Riêng cho Mono: thẻ viền đen + bóng cứng, không gradient, số liệu chữ đều */
+    .card{border:1px solid #111}
+    .sidebar{border-right-width:1px}
+    .topbar{border-bottom:1px solid #111}
+    .stat .ico{background:#111;color:#fff;border-radius:4px}
+    .badge{background:#111;color:#fff}
+    .nav a.active .badge{background:#fff;color:#111}
+    .chart .line{stroke-width:2}
+    td.num,.stat .v{font-variant-numeric:tabular-nums}
+    .btn,.chip,.search input{border-radius:4px}
+  </style>
+</head>
+<body>
+  <?!= include('NimbusLayout') ?>
+  <script>window.APP_BASE = <?!= JSON.stringify(baseUrl) ?>; window.APP_THEME = 'mono';</script>
+  <?!= include('NimbusScript') ?>
+</body>
+</html>

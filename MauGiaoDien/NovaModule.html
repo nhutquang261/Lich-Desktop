@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<?!= include('NovaSidebarHead'); ?>
+<?!= include('NovaNen'); ?>
+<?!= include('NovaSangStyle'); ?>
+<?!= include('NovaModuleStyle'); ?>
+</head>
+<body>
+<?!= include('NovaIcon'); ?>
+<div class="lop-phu" data-dong-ngan></div>
+
+<aside class="sb" id="sb" aria-label="Thanh bên">
+  <div class="sb-dau">
+    <span class="sb-logo">N</span>
+    <span class="sb-ten">Nova</span>
+  </div>
+  <nav class="sb-giua" data-menu="module" aria-label="Các module"></nav>
+  <div class="sb-chan">
+    <button type="button" class="sb-nguoi" data-tip="Quản trị viên">
+      <span class="sb-anh">QT</span>
+      <div><b>Quản trị viên</b><small>admin@example.com</small></div>
+    </button>
+  </div>
+</aside>
+
+<div class="chinh">
+  <header class="dau">
+    <button type="button" class="nut-icon" data-nut="thu-gon"><svg class="ic" aria-hidden="true"><use href="#i-thu-gon"/></svg></button>
+    <button type="button" class="nut-icon" data-nut="ngan" aria-controls="sb"><svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    <label class="tim"><svg class="ic" aria-hidden="true"><use href="#i-tim"/></svg><input type="text" readonly data-tn-mo placeholder="Tìm module…" aria-label="Tìm nhanh module" aria-haspopup="dialog"><kbd>Ctrl K</kbd></label>
+    <span class="dau-chung"></span>
+    <button type="button" class="nut-icon nut-tim-dt" data-tn-mo aria-label="Tìm nhanh module"><svg class="ic" aria-hidden="true"><use href="#i-tim"/></svg></button>
+    <button type="button" class="nut-icon chuong" aria-label="Thông báo"><svg class="ic" aria-hidden="true"><use href="#i-chuong"/></svg></button>
+    <a class="doi-mau" target="_top" href="<?= baseUrl ?>">Đổi mẫu</a>
+  </header>
+  <main class="noidung"><?!= include('NovaNoiDung'); ?></main>
+</div>
+
+<?!= include('NovaTimNhanh'); ?>
+<script>
+// Du lieu MENU cua mau nay (24 module / 6 nhom): NovaSidebarScript doc window.MENU_MAU. ghim: true = ghim san luc dau (nguoi dung doi duoc, nho o localStorage)
+window.MENU_MAU = [
+  { id: 'tong-quan', ten: 'Tổng quan', icon: 'bieu-do', muc: [
+    { id: 'bang-dieu-khien', ten: 'Bảng điều khiển', icon: 'bang', ghim: true },
+    { id: 'phan-tich', ten: 'Phân tích', icon: 'bieu-do' },
+    { id: 'bao-cao', ten: 'Báo cáo', icon: 'tai-lieu', ghim: true } ] },
+  { id: 'ban-hang', ten: 'Bán hàng', icon: 'gio', muc: [
+    { id: 'don-hang', ten: 'Đơn hàng', icon: 'gio', huy: '12', ghim: true },
+    { id: 'khach-hang', ten: 'Khách hàng', icon: 'nguoi' },
+    { id: 'san-pham', ten: 'Sản phẩm', icon: 'hop' },
+    { id: 'khuyen-mai', ten: 'Khuyến mãi', icon: 'sao' },
+    { id: 'doi-tra', ten: 'Đổi trả', icon: 'gio', huy: '3' } ] },
+  { id: 'kho', ten: 'Kho & mua hàng', icon: 'hop', muc: [
+    { id: 'ton-kho', ten: 'Tồn kho', icon: 'hop' },
+    { id: 'nhap-hang', ten: 'Nhập hàng', icon: 'tai-xuong' },
+    { id: 'nha-cung-cap', ten: 'Nhà cung cấp', icon: 'nguoi' },
+    { id: 'kiem-ke', ten: 'Kiểm kê', icon: 'tai-lieu' } ] },
+  { id: 'tai-chinh', ten: 'Tài chính', icon: 'vi', muc: [
+    { id: 'thu-chi', ten: 'Thu chi', icon: 'vi' },
+    { id: 'hoa-don', ten: 'Hóa đơn', icon: 'tai-lieu' },
+    { id: 'cong-no', ten: 'Công nợ', icon: 'bieu-do' },
+    { id: 'ngan-hang', ten: 'Ngân hàng', icon: 'vi' },
+    { id: 'thue', ten: 'Thuế', icon: 'tai-lieu' } ] },
+  { id: 'nhan-su', ten: 'Nhân sự', icon: 'nguoi', muc: [
+    { id: 'nhan-vien', ten: 'Nhân viên', icon: 'nguoi' },
+    { id: 'cham-cong', ten: 'Chấm công', icon: 'lich' },
+    { id: 'luong', ten: 'Lương', icon: 'vi' },
+    { id: 'tuyen-dung', ten: 'Tuyển dụng', icon: 'nguoi' } ] },
+  { id: 'he-thong', ten: 'Hệ thống', icon: 'cai-dat', muc: [
+    { id: 'cai-dat', ten: 'Cài đặt', icon: 'cai-dat' },
+    { id: 'phan-quyen', ten: 'Phân quyền', icon: 'nguoi' },
+    { id: 'nhat-ky', ten: 'Nhật ký', icon: 'tai-lieu' },
+    { id: 'tich-hop', ten: 'Tích hợp', icon: 'cai-dat' } ] }
+];
+</script>
+<?!= include('NovaSidebarScript'); ?>
+<script>NovaTimNhanh.khoiTao();</script>
+</body>
+</html>

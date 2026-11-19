@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- NIMBUS OCEAN (mẫu 08) — nội dung sáng, sidebar xanh navy đậm tương phản, điểm nhấn xanh dương -->
+  <style>
+    :root{
+      --font:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+      --bg:#eef4fb; --surface:#ffffff; --surface-2:#f4f8fd; --hover:#f1f6fc;
+      --border:#dce6f3; --border-strong:#c3d3e8;
+      --text:#0b1b33; --muted:#53688a;
+      --primary:#1d6fe5; --primary-contrast:#ffffff; --primary-soft:#e4eefd; --ring:rgba(29,111,229,.18);
+      --primary-grad:linear-gradient(135deg,#3b8bf5,#1559c7);
+      --ok:#0b7d5a; --ok-soft:#dcf5ea; --warn:#8f5b08; --warn-soft:#fbefd2; --bad:#b4283f; --bad-soft:#fbe7ea; --danger:#e5384f;
+      --radius:14px; --radius-sm:10px;
+      --shadow:0 1px 2px rgba(11,37,69,.05),0 8px 24px rgba(11,37,69,.07);
+      --shadow-sm:0 1px 2px rgba(11,37,69,.1);
+      --shadow-lg:0 20px 50px rgba(11,37,69,.28);
+      --sb-bg:#0b2545; --sb-text:#b4c8e6; --sb-title:#ffffff; --sb-muted:#8aa7cf; --sb-border:rgba(255,255,255,.08);
+      --sb-hover:rgba(255,255,255,.07); --sb-active-bg:#1d6fe5; --sb-active-text:#ffffff;
+      --sb-active-shadow:0 8px 18px rgba(29,111,229,.4);
+      --brand-bg:linear-gradient(135deg,#38bdf8,#1d6fe5); --brand-fg:#ffffff; --brand-shadow:0 6px 16px rgba(56,189,248,.35);
+      --avatar-bg:linear-gradient(135deg,#7dd3fc,#818cf8); --avatar-fg:#0b2545;
+      --topbar-bg:rgba(238,244,251,.85);
+      --tip-bg:#e8f1ff; --tip-fg:#0b2545; --scrim:rgba(11,37,69,.5);
+      --btn-shadow:0 6px 16px rgba(29,111,229,.3);
+    }
+  </style>
+  <?!= include('NimbusBase') ?>
+  <style>
+    /* Riêng cho Ocean: dải sóng nhẹ ở đầu trang, huy hiệu menu nổi bật trên nền navy */
+    body{background:radial-gradient(1000px 340px at 85% -120px,rgba(56,189,248,.20),transparent 70%),var(--bg)}
+    .sidebar .badge{background:#38bdf8;color:#06203f}
+    .nav a.active .badge{background:#fff;color:#1559c7}
+    .card{border-color:transparent}
+  </style>
+</head>
+<body>
+  <?!= include('NimbusLayout') ?>
+  <script>window.APP_BASE = <?!= JSON.stringify(baseUrl) ?>; window.APP_THEME = 'ocean';</script>
+  <?!= include('NimbusScript') ?>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<style>
+/* ===== NOVA RAIL (mau 04): Hai lop - Rail + Panel (thanh icon toi co dinh + panel menu sang; thu gon = an panel, chi con rail) ===== */
+:root { --sb-mo: 312px; --nen: #f6f7fb; --dau-nen: #fff; --nhan: #2563eb; --nhan-nhe: #e3ecff; --rail-nen: #0f172a; }
+.sb { flex-direction: row; background: var(--sb-nen); }
+.ray { width: var(--sb-dong); flex: none; display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 12px 0; background: var(--rail-nen); }
+.ray .sb-logo { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: #fff; }
+.ray-nhom { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; padding-top: 6px; }
+.ray-chan { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.ray-muc { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 14px; color: #a8b4c8; transition: background .15s, color .15s; }
+.ray-muc:hover { background: rgba(255, 255, 255, .09); color: #fff; }
+.ray-muc[aria-current] { background: var(--nhan); color: #fff; box-shadow: 0 6px 16px rgba(37, 99, 235, .45); }
+.ray-muc:focus-visible { outline-color: #93c5fd; }
+.ray-chan .sb-anh { background: rgba(255, 255, 255, .12); color: #fff; }
+.panel { width: calc(var(--sb-mo) - var(--sb-dong)); flex: none; min-width: 0; display: flex; flex-direction: column; }
+.panel .sb-dau { padding: 0 26px; }
+.panel-ten { padding: 6px 14px 12px; font-size: 20px; font-weight: 700; letter-spacing: -.02em; white-space: nowrap; }
+.panel .sb-giua { padding-top: 0; }
+.dau { border-bottom: 1px solid var(--vien); }
+@media (min-width: 721px) {
+  html[data-thu-gon="1"] .panel { visibility: hidden; transition: visibility 0s var(--tg); } /* an panel (khong Tab vao duoc) sau khi sidebar thu xong */
+  html[data-thu-gon="1"] .sb { border-right-color: transparent; }
+}
+</style>

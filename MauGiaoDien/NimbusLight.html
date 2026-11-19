@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- NIMBUS LIGHT (mẫu 05) — sáng, thoáng, điểm nhấn indigo -->
+  <style>
+    :root{
+      --font:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+      --bg:#f5f6fb; --surface:#ffffff; --surface-2:#f8f9fc; --hover:#f7f8fc;
+      --border:#e8eaf2; --border-strong:#d3d8e6;
+      --text:#151a2d; --muted:#656d8c;
+      --primary:#5555e8; --primary-contrast:#ffffff; --primary-soft:#eeeefe; --ring:rgba(85,85,232,.16);
+      --primary-grad:linear-gradient(135deg,#6a6af4,#4a4adb);
+      --ok:#0d7a57; --ok-soft:#e1f5ec; --warn:#94610a; --warn-soft:#fcf1d8; --bad:#b8324a; --bad-soft:#fcebee; --danger:#ef4565;
+      --radius:16px; --radius-sm:12px;
+      --shadow:0 1px 2px rgba(20,26,60,.04),0 8px 28px rgba(20,26,60,.06);
+      --shadow-sm:0 1px 2px rgba(20,26,60,.08);
+      --shadow-lg:0 20px 50px rgba(20,26,60,.20);
+      --sb-bg:#ffffff; --sb-text:#4a5272; --sb-title:#151a2d; --sb-muted:#98a0bc; --sb-border:#e8eaf2;
+      --sb-hover:#f4f5fb; --sb-active-bg:#eeeefe; --sb-active-text:#4a4adb;
+      --brand-bg:linear-gradient(135deg,#6f6ff7,#4343d6); --brand-fg:#fff; --brand-shadow:0 6px 14px rgba(85,85,232,.35);
+      --avatar-bg:linear-gradient(135deg,#ffd9ab,#ff9db6); --avatar-fg:#5a2b3a;
+      --topbar-bg:rgba(245,246,251,.82);
+      --tip-bg:#151a2d; --tip-fg:#ffffff; --scrim:rgba(21,26,45,.38);
+      --btn-shadow:0 6px 16px rgba(85,85,232,.28);
+    }
+  </style>
+  <?!= include('NimbusBase') ?>
+  <style>
+    /* Riêng cho Light: dải màu nhẹ ở đầu trang */
+    body{background:radial-gradient(900px 320px at 80% -80px,rgba(106,106,244,.10),transparent 70%),var(--bg)}
+    .nav a.active{font-weight:600}
+  </style>
+</head>
+<body>
+  <?!= include('NimbusLayout') ?>
+  <script>window.APP_BASE = <?!= JSON.stringify(baseUrl) ?>; window.APP_THEME = 'light';</script>
+  <?!= include('NimbusScript') ?>
+</body>
+</html>

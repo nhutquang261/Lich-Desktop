@@ -1,0 +1,179 @@
+<!-- Bộ icon (inline SVG, không cần thư viện ngoài) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 9 5-9 5-9-5z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="i-cart" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 21v-7"/><path d="M4 10V3"/><path d="M12 21v-9"/><path d="M12 8V3"/><path d="M20 21v-5"/><path d="M20 12V3"/><path d="M1 14h6"/><path d="M9 8h6"/><path d="M17 16h6"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></symbol>
+    <symbol id="i-money" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01"/><path d="M18 12h.01"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m7 7 10 10"/><path d="M17 7v10H7"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></symbol>
+  </defs>
+</svg>
+
+<div class="app no-anim" id="app">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar" aria-label="Điều hướng chính">
+    <button class="sb-toggle" id="sbToggle" type="button" aria-expanded="true" aria-controls="sidebar" aria-label="Thu gọn hoặc mở rộng thanh bên" title="Thu gọn / mở rộng (Ctrl+B)">
+      <svg class="i"><use href="#i-chev"/></svg>
+    </button>
+
+    <div class="sb-head">
+      <div class="brand-mark"><svg class="i"><use href="#i-layers"/></svg></div>
+      <span class="brand-name label">Nimbus</span>
+    </div>
+
+    <nav class="nav">
+      <div class="nav-title"><span>Menu</span></div>
+      <a href="#" data-page="dashboard" data-tip="Tổng quan"><svg class="i"><use href="#i-home"/></svg><span class="label">Tổng quan</span></a>
+      <a href="#" data-page="orders" data-tip="Đơn hàng"><svg class="i"><use href="#i-cart"/></svg><span class="label">Đơn hàng</span><span class="badge">12</span></a>
+      <a href="#" data-page="customers" data-tip="Khách hàng"><svg class="i"><use href="#i-users"/></svg><span class="label">Khách hàng</span></a>
+      <a href="#" data-page="reports" data-tip="Báo cáo"><svg class="i"><use href="#i-chart"/></svg><span class="label">Báo cáo</span></a>
+
+      <div class="nav-title"><span>Hệ thống</span></div>
+      <a href="#" data-page="settings" data-tip="Cài đặt"><svg class="i"><use href="#i-sliders"/></svg><span class="label">Cài đặt</span></a>
+    </nav>
+
+    <div class="sb-foot">
+      <div class="sb-user" data-tip="Tài khoản">
+        <span class="avatar" id="uAvatar">KH</span>
+        <div class="meta label"><strong id="uName">Khách</strong><small id="uMail">&nbsp;</small></div>
+      </div>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Mở menu"><svg class="i"><use href="#i-menu"/></svg></button>
+      <div class="titles">
+        <h1 id="pageTitle">Tổng quan</h1>
+        <small id="pageSub">Theo dõi hiệu suất kinh doanh của bạn</small>
+      </div>
+
+      <label class="search">
+        <svg class="i"><use href="#i-search"/></svg>
+        <input id="globalSearch" type="search" placeholder="Tìm đơn hàng, khách hàng…" autocomplete="off" aria-label="Tìm kiếm">
+      </label>
+      <div class="seg" aria-label="Chọn giao diện">
+        <a data-theme="light">Light</a><a data-theme="dark">Dark</a><a data-theme="aurora">Aurora</a><a data-theme="ocean">Ocean</a><a data-theme="sunset">Sunset</a><a data-theme="mono">Mono</a>
+      </div>
+      <button class="icon-btn bell" id="bellBtn" type="button" aria-label="Thông báo"><svg class="i"><use href="#i-bell"/></svg><span class="dot"></span></button>
+      <a class="icon-btn" id="allBtn" aria-label="Tất cả mẫu" title="Tất cả mẫu"><svg class="i"><use href="#i-grid"/></svg></a>
+    </header>
+
+    <main class="content">
+
+      <!-- Tổng quan -->
+      <section class="page active" id="page-dashboard">
+        <div class="stats" id="stats">
+          <div class="card stat skel"></div><div class="card stat skel"></div><div class="card stat skel"></div><div class="card stat skel"></div>
+        </div>
+        <div class="split">
+          <div class="card">
+            <div class="card-h">
+              <div><h3>Doanh thu theo tháng</h3><p>Đơn vị: triệu đồng · năm 2026</p></div>
+              <div class="chips" id="rangeChips"><button class="chip" data-range="6" type="button">6 tháng</button><button class="chip on" data-range="12" type="button">12 tháng</button></div>
+            </div>
+            <div class="card-b"><div class="chart" id="chartMain"></div></div>
+          </div>
+          <div class="card">
+            <div class="card-h"><div><h3>Hoạt động gần đây</h3><p>Cập nhật mới nhất</p></div></div>
+            <div class="card-b"><ul class="feed" id="feed"></ul></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-h">
+            <div><h3>Đơn hàng gần đây</h3><p>5 đơn mới nhất</p></div>
+            <button class="btn" type="button" data-go="orders">Xem tất cả</button>
+          </div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Mã đơn</th><th>Khách hàng</th><th class="num">Số tiền (đ)</th><th>Trạng thái</th></tr></thead>
+              <tbody id="tblRecent"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Đơn hàng -->
+      <section class="page" id="page-orders">
+        <div class="card">
+          <div class="toolbar">
+            <div class="chips" id="statusChips">
+              <button class="chip on" data-status="all" type="button">Tất cả</button>
+              <button class="chip" data-status="Hoàn tất" type="button">Hoàn tất</button>
+              <button class="chip" data-status="Đang xử lý" type="button">Đang xử lý</button>
+              <button class="chip" data-status="Đã hủy" type="button">Đã hủy</button>
+            </div>
+            <span id="orderCount" style="color:var(--muted)"></span>
+          </div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Mã đơn</th><th>Khách hàng</th><th class="num">Số tiền (đ)</th><th>Trạng thái</th></tr></thead>
+              <tbody id="tblOrders"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Khách hàng -->
+      <section class="page" id="page-customers">
+        <div class="cust-grid" id="custGrid"></div>
+      </section>
+
+      <!-- Báo cáo -->
+      <section class="page" id="page-reports">
+        <div class="card">
+          <div class="card-h">
+            <div><h3>Báo cáo doanh thu</h3><p>Toàn bộ năm 2026 · triệu đồng</p></div>
+            <button class="btn primary" id="exportBtn" type="button"><svg class="i"><use href="#i-download"/></svg>Xuất báo cáo</button>
+          </div>
+          <div class="card-b"><div class="chart" id="chartReport"></div></div>
+        </div>
+      </section>
+
+      <!-- Cài đặt -->
+      <section class="page" id="page-settings">
+        <div class="stack">
+          <div class="card">
+            <div class="card-h"><div><h3>Giao diện</h3><p>Chọn phong cách hiển thị cho ứng dụng</p></div></div>
+            <div class="card-b">
+              <div class="themes">
+                <a class="theme-card" data-theme="light"><span class="sw sw-light"></span><b>Light</b><small>Sáng, tối giản</small></a>
+                <a class="theme-card" data-theme="dark"><span class="sw sw-dark"></span><b>Dark</b><small>Tối, tập trung</small></a>
+                <a class="theme-card" data-theme="aurora"><span class="sw sw-aurora"></span><b>Aurora</b><small>Kính mờ, chuyển màu</small></a>
+                <a class="theme-card" data-theme="ocean"><span class="sw sw-ocean"></span><b>Ocean</b><small>Sidebar navy, nhấn xanh dương</small></a>
+                <a class="theme-card" data-theme="sunset"><span class="sw sw-sunset"></span><b>Sunset</b><small>Nền kem ấm, cam đất</small></a>
+                <a class="theme-card" data-theme="mono"><span class="sw sw-mono"></span><b>Mono</b><small>Đen trắng, viền đậm</small></a>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-h"><div><h3>Tuỳ chọn</h3><p>Lưu trên trình duyệt của bạn</p></div></div>
+            <div class="card-b">
+              <div class="set-row"><div><b>Thu gọn thanh bên mặc định</b><small>Chỉ hiển thị biểu tượng, nhường chỗ cho nội dung</small></div><button class="switch" type="button" role="switch" aria-checked="false" aria-label="Thu gọn thanh bên mặc định" data-setting="collapsed"></button></div>
+              <div class="set-row"><div><b>Thông báo qua email</b><small>Nhận tóm tắt đơn hàng mỗi ngày</small></div><button class="switch" type="button" role="switch" aria-checked="false" aria-label="Thông báo qua email" data-setting="email"></button></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<div class="tip" id="tip" role="tooltip"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>

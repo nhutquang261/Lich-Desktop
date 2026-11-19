@@ -1,0 +1,32 @@
+<style>
+/* ===== NOVA GLASS (mau 02): Toi - Glass (nen toi co quang mau mo, sidebar + the kinh mo) ===== */
+:root {
+  color-scheme: dark;
+  --nen: #0b1020; --the: rgba(255, 255, 255, .06); --chu: #e8ecf8; --mo: #a3aecb; --vien: rgba(255, 255, 255, .11);
+  --nhan: #6d5bf5; --nhan-chu: #fff; --nhan-nhe: rgba(124, 108, 255, .2); --chu-nhan: #c4bcff;
+  --tot: #4ade80; --xau: #f87171; --cho: #fbbf24; --tot-nen: rgba(34, 197, 94, .16); --xau-nen: rgba(239, 68, 68, .18); --cho-nen: rgba(245, 158, 11, .16); --xanh-nen: rgba(56, 189, 248, .16); --xanh: #7dd3fc;
+  --bong: 0 8px 32px rgba(0, 0, 0, .28);
+  --sb-nen: #141a32; --sb-chu: #d6dcf0; --sb-mo-chu: #8f9bbd; --sb-vien: rgba(255, 255, 255, .1); --sb-hover: rgba(255, 255, 255, .07);
+  --sb-act-nen: linear-gradient(90deg, rgba(124, 108, 255, .34), rgba(34, 211, 238, .14)); --sb-act-chu: #fff; --sb-nhanh: var(--chu-nhan);
+  --noi-nen: #222a4d; --noi-chu: #f1f4ff;
+  --dau-nen: transparent;
+}
+body { background: var(--nen); }
+body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(520px 420px at 12% 8%, rgba(109, 91, 245, .42), transparent 70%), radial-gradient(560px 460px at 88% 18%, rgba(34, 211, 238, .22), transparent 70%), radial-gradient(620px 520px at 60% 100%, rgba(236, 72, 153, .2), transparent 70%); }
+.sb { background: color-mix(in srgb, var(--sb-nen) 62%, transparent); backdrop-filter: blur(22px) saturate(140%); -webkit-backdrop-filter: blur(22px) saturate(140%); }
+.the { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+.sb-logo { background: linear-gradient(135deg, #7c6cff, #22d3ee); box-shadow: 0 6px 18px rgba(124, 108, 255, .45); }
+.sb-muc[aria-current="page"], .sb-con-muc[aria-current="page"] { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12); }
+.sb-huy { background: var(--nhan-nhe); color: var(--chu-nhan); }
+.sb-anh, .so-nhan .ic { color: var(--chu-nhan); }
+.btn { background: rgba(255, 255, 255, .07); color: var(--chu); }
+.btn.chinh-nut { background: linear-gradient(135deg, #6d5bf5, #0e7490); border-color: transparent; }
+.tim { background: rgba(255, 255, 255, .06); }
+.tim input::placeholder { color: var(--mo); }
+.doi-mau { background: rgba(255, 255, 255, .07); }
+.bieu i { background: linear-gradient(180deg, #8b7bff, rgba(34, 211, 238, .4)); }
+a { color: var(--chu-nhan); }
+.chuong::after { box-shadow: none; }
+.bang tbody tr:hover { background: rgba(255, 255, 255, .05); }
+</style>

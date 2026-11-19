@@ -1,0 +1,20 @@
+<style>
+/* ===== NOVA MODULE (mau 11): nhieu module — nhom gap / mo, muc ghim, nut ghim tung muc; thu gon = 1 icon moi nhom + flyout ===== */
+.sb-nhom-nut { font-weight: 600; }
+.sb-hang { position: relative; }
+.sb-hang .sb-con-muc { padding-right: 44px; }
+.sb-hang .sb-huy { margin-left: auto; }
+.sb-ghim-nut { position: absolute; right: 6px; top: 50%; width: 30px; height: 30px; margin-top: -15px; display: grid; place-items: center; border-radius: 8px; color: var(--sb-mo-chu); opacity: 0; transition: opacity .15s, background .15s; }
+.sb-ghim-nut svg.ic { width: 16px; height: 16px; }
+.sb-ghim-nut:hover { background: var(--sb-hover); color: var(--sb-chu); }
+.sb-hang:hover .sb-ghim-nut, .sb-hang:focus-within .sb-ghim-nut, .sb-ghim-nut[aria-pressed="true"] { opacity: 1; }
+.sb-ghim-nut[aria-pressed="true"] { color: #d97706; }
+.sb-ghim-nut[aria-pressed="true"] svg.ic { fill: currentColor; }
+@media (hover: none) { .sb-ghim-nut { opacity: 1; } }
+
+/* O tim tren thanh dau chi la nut mo hop tim nhanh (Ctrl+K) */
+.tim input[readonly] { cursor: pointer; }
+.tim kbd { flex: none; padding: 1px 7px; border: 1px solid var(--vien); border-radius: 6px; font-family: inherit; font-size: 11px; font-weight: 600; line-height: 18px; color: var(--mo); background: var(--nen); }
+.nut-tim-dt { display: none; }
+@media (max-width: 720px) { .nut-tim-dt { display: grid; } }
+</style>

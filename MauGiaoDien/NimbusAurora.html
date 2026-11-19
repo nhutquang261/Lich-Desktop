@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- NIMBUS AURORA (mẫu 07) — kính mờ (glassmorphism), nền chuyển màu, sidebar nổi -->
+  <style>
+    :root{
+      color-scheme:dark;
+      --font:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+      --bg:#080a1a; --surface:rgba(255,255,255,.065); --surface-2:rgba(255,255,255,.04); --hover:rgba(255,255,255,.05);
+      --border:rgba(255,255,255,.12); --border-strong:rgba(255,255,255,.24);
+      --text:#f1f2ff; --muted:#a9aed2;
+      --primary:#b0a4ff; --primary-contrast:#ffffff; --primary-soft:rgba(140,120,255,.20); --ring:rgba(150,130,255,.28);
+      --primary-grad:linear-gradient(135deg,#7a4df7,#3f6ff2);
+      --ok:#6ee7c8; --ok-soft:rgba(110,231,200,.14); --warn:#fcd34d; --warn-soft:rgba(252,211,77,.14); --bad:#fda4af; --bad-soft:rgba(253,164,175,.14); --danger:#ff5c8a;
+      --radius:20px; --radius-sm:14px;
+      --shadow:0 12px 40px rgba(2,3,20,.35);
+      --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+      --shadow-lg:0 24px 70px rgba(2,3,20,.7);
+      --sb-bg:rgba(255,255,255,.06); --sb-text:#c3c7e6; --sb-title:#ffffff; --sb-muted:#7f85b0; --sb-border:rgba(255,255,255,.1);
+      --sb-hover:rgba(255,255,255,.07);
+      --sb-active-bg:linear-gradient(135deg,rgba(122,77,247,.55),rgba(63,111,242,.35)); --sb-active-text:#ffffff;
+      --sb-active-shadow:inset 0 0 0 1px rgba(255,255,255,.16),0 8px 24px rgba(90,70,230,.30);
+      --brand-bg:linear-gradient(135deg,#8b5cf6,#22d3ee); --brand-fg:#ffffff; --brand-shadow:0 0 26px rgba(139,92,246,.6);
+      --avatar-bg:linear-gradient(135deg,#f9a8d4,#a78bfa); --avatar-fg:#2a1442;
+      --topbar-bg:rgba(8,10,26,.45); --dot-ring:#1b1d3d;
+      --tip-bg:#f1f2ff; --tip-fg:#0b0d24; --scrim:rgba(4,5,18,.7);
+      --btn-shadow:0 8px 24px rgba(90,70,230,.45);
+      --seg-on:rgba(255,255,255,.16); --shimmer:rgba(255,255,255,.07);
+    }
+  </style>
+  <?!= include('NimbusBase') ?>
+  <style>
+    /* Nền aurora cố định */
+    body{background:#080a1a}
+    body::before{content:"";position:fixed;inset:0;z-index:-1;
+      background:
+        radial-gradient(55vw 50vh at 10% 6%,rgba(124,92,255,.50),transparent 62%),
+        radial-gradient(50vw 50vh at 92% 10%,rgba(0,214,201,.30),transparent 62%),
+        radial-gradient(60vw 60vh at 72% 104%,rgba(255,92,170,.30),transparent 62%),
+        #080a1a}
+
+    /* Kính mờ cho thẻ, bảng, ô nhập */
+    .card,.icon-btn,.search input,.seg,.sb-toggle{-webkit-backdrop-filter:blur(18px) saturate(1.3);backdrop-filter:blur(18px) saturate(1.3)}
+    .card{border-color:var(--border);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.08)}
+    th{background:rgba(255,255,255,.035)}
+    .sb-toggle{background:rgba(30,32,70,.85)}
+    .chart .line{filter:drop-shadow(0 0 8px rgba(160,140,255,.7))}
+    .topbar{border-bottom-color:transparent}
+    .stat .ico{background:linear-gradient(135deg,rgba(124,92,255,.35),rgba(34,211,238,.18))}
+
+    /* Sidebar nổi, bo tròn (chỉ trên desktop) */
+    @media (min-width:901px){
+      .sidebar{top:16px;height:calc(100vh - 32px);margin:16px 0 16px 16px;border:1px solid var(--border);border-radius:26px;
+        -webkit-backdrop-filter:blur(24px) saturate(1.4);backdrop-filter:blur(24px) saturate(1.4);box-shadow:0 20px 60px rgba(2,3,20,.45),inset 0 1px 0 rgba(255,255,255,.1)}
+      .sb-toggle{right:-14px}
+    }
+    @media (max-width:900px){
+      .sidebar{background:rgba(18,20,52,.96)}
+    }
+  </style>
+</head>
+<body>
+  <?!= include('NimbusLayout') ?>
+  <script>window.APP_BASE = <?!= JSON.stringify(baseUrl) ?>; window.APP_THEME = 'aurora';</script>
+  <?!= include('NimbusScript') ?>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<style>
+/* ===== NOVA NOI (mau 03): Noi - bo goc (sidebar roi khoi mep, bo tron, muc dang chon dang vien thuoc, the khong vien) ===== */
+:root {
+  --sb-le: 14px; --sb-mo: 264px;
+  --nen: #eef3f0; --the: #fff; --chu: #14201a; --mo: #5b6b62; --vien: transparent;
+  --nhan: #047857; --nhan-chu: #fff; --nhan-nhe: #d9f2e6;
+  --bk: 22px; --bong: 0 2px 4px rgba(20, 60, 40, .04), 0 12px 28px rgba(20, 60, 40, .07);
+  --sb-nen: #fff; --sb-chu: #2c3b33; --sb-mo-chu: #5b6b62; --sb-vien: transparent; --sb-hover: #eef6f1;
+  --sb-act-nen: var(--nhan); --sb-act-chu: #fff; --sb-nhanh: var(--nhan);
+  --dau-nen: transparent;
+}
+.sb { border: 0; border-radius: 28px; box-shadow: 0 10px 40px rgba(20, 60, 40, .14); }
+.sb-muc, .sb-con-muc { border-radius: 999px; }
+.sb-muc[aria-current="page"], .sb-con-muc[aria-current="page"] { box-shadow: 0 6px 16px rgba(4, 120, 87, .32); }
+.sb-con-muc[aria-current="page"] { color: #fff; }
+.sb-muc[aria-current="page"] .sb-huy { background: #fff; color: var(--nhan); }
+.sb-logo { border-radius: 50%; background: var(--nhan); }
+.sb-chan { border-top: 0; display: grid; gap: 4px; }
+.nut-thu { display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 14px; border-radius: 999px; color: var(--sb-mo-chu); text-align: left; white-space: nowrap; }
+.nut-thu:hover { background: var(--sb-hover); color: var(--sb-chu); }
+.nut-thu svg { transition: transform var(--tg); }
+html[data-thu-gon="1"] .nut-thu svg { transform: scaleX(-1); }
+.dau { padding-top: 10px; padding-bottom: 10px; }
+.dau-chung b { font-size: 17px; letter-spacing: -.01em; }
+.tim, .nut-icon, .doi-mau { border: 0; box-shadow: var(--bong); background: var(--the); }
+.the { border: 0; }
+.so-nhan .ic { border-radius: 50%; }
+.btn { border: 0; box-shadow: var(--bong); }
+.btn.chinh-nut { box-shadow: 0 8px 18px rgba(4, 120, 87, .3); }
+.tt::before { border-radius: 2px; }
+.bieu i { border-radius: 999px; background: linear-gradient(180deg, #10b981, #a7f3d0); }
+@media (max-width: 720px) { :root { --sb-le: 10px; } .dau-chung { display: none; } .dau { gap: 10px; } .dau .tim { display: none; } .dau .chuong { margin-left: auto; } }
+</style>

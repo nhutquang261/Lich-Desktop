@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<?!= include('NovaSidebarHead'); ?>
+<?!= include('NovaNen'); ?>
+<?!= include('NovaGlassStyle'); ?>
+</head>
+<body>
+<?!= include('NovaIcon'); ?>
+<div class="lop-phu" data-dong-ngan></div>
+
+<aside class="sb" id="sb" aria-label="Thanh bên">
+  <div class="sb-dau">
+    <span class="sb-logo">N</span>
+    <span class="sb-ten">Nova</span>
+  </div>
+  <nav class="sb-giua" data-menu="phang" aria-label="Menu chính"></nav>
+  <div class="sb-chan">
+    <button type="button" class="sb-nguoi" data-tip="Quản trị viên">
+      <span class="sb-anh">QT</span>
+      <div><b>Quản trị viên</b><small>admin@example.com</small></div>
+    </button>
+  </div>
+</aside>
+
+<div class="chinh">
+  <header class="dau">
+    <button type="button" class="nut-icon" data-nut="thu-gon"><svg class="ic" aria-hidden="true"><use href="#i-thu-gon"/></svg></button>
+    <button type="button" class="nut-icon" data-nut="ngan" aria-controls="sb"><svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    <label class="tim"><svg class="ic" aria-hidden="true"><use href="#i-tim"/></svg><input type="search" placeholder="Tìm kiếm nhanh…" aria-label="Tìm kiếm"></label>
+    <span class="dau-chung"></span>
+    <button type="button" class="nut-icon chuong" aria-label="Thông báo"><svg class="ic" aria-hidden="true"><use href="#i-chuong"/></svg></button>
+    <a class="doi-mau" target="_top" href="<?= baseUrl ?>">Đổi mẫu</a>
+  </header>
+  <main class="noidung"><?!= include('NovaNoiDung'); ?></main>
+</div>
+
+<?!= include('NovaSidebarScript'); ?>
+</body>
+</html>

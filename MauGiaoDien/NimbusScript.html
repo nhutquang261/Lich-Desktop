@@ -1,0 +1,256 @@
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- Tiện ích ---------- */
+  const $  = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const initials = n => String(n).trim().split(/\s+/).slice(-2).map(w => w[0]).join('').toUpperCase() || '?';
+  // localStorage có thể bị chặn trong iframe của Apps Script -> luôn bọc try/catch
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+
+  const app = $('#app');
+  const tip = $('#tip');
+  const mq  = window.matchMedia('(max-width: 900px)');
+  const isMobile = () => mq.matches;
+
+  /* ---------- Toast ---------- */
+  let toastTimer;
+  function toast(msg) {
+    const el = $('#toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 2600);
+  }
+
+  /* ---------- Tooltip khi sidebar thu gọn ---------- */
+  function hideTip() { tip.classList.remove('show'); }
+  $$('.sidebar [data-tip]').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      if (!app.classList.contains('collapsed')) return;
+      const r = el.getBoundingClientRect();
+      tip.textContent = el.dataset.tip;
+      tip.style.top = (r.top + r.height / 2) + 'px';
+      tip.style.left = (r.right + 14) + 'px';
+      tip.classList.add('show');
+    });
+    el.addEventListener('mouseleave', hideTip);
+    el.addEventListener('focus', () => el.dispatchEvent(new Event('mouseenter')));
+    el.addEventListener('blur', hideTip);
+  });
+
+  /* ---------- Sidebar thu gọn / mở rộng ---------- */
+  let collapsed = store.get('sb-collapsed') === '1';
+  function applySidebar() {
+    const c = collapsed && !isMobile();
+    app.classList.toggle('collapsed', c);
+    $('#sbToggle').setAttribute('aria-expanded', String(!c));
+    const sw = $('[data-setting="collapsed"]');
+    if (sw) sw.setAttribute('aria-checked', String(collapsed));
+    hideTip();
+  }
+  function setCollapsed(v) { collapsed = v; store.set('sb-collapsed', v ? '1' : '0'); applySidebar(); }
+
+  $('#sbToggle').addEventListener('click', () => setCollapsed(!collapsed));
+  $('#menuBtn').addEventListener('click', () => app.classList.add('mobile-open'));
+  $('#scrim').addEventListener('click', closeMobile);
+  function closeMobile() { app.classList.remove('mobile-open'); }
+  mq.addEventListener ? mq.addEventListener('change', applySidebar) : mq.addListener(applySidebar);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeMobile();
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'b') {
+      e.preventDefault();
+      if (!isMobile()) setCollapsed(!collapsed);
+    }
+  });
+
+  /* ---------- Điều hướng giữa các trang ---------- */
+  const PAGES = {
+    dashboard: ['Tổng quan', 'Theo dõi hiệu suất kinh doanh của bạn'],
+    orders:    ['Đơn hàng', 'Quản lý và tra cứu đơn hàng'],
+    customers: ['Khách hàng', 'Danh sách khách hàng gần đây'],
+    reports:   ['Báo cáo', 'Phân tích doanh thu theo thời gian'],
+    settings:  ['Cài đặt', 'Tuỳ chỉnh giao diện và tuỳ chọn']
+  };
+  function go(page) {
+    if (!PAGES[page]) page = 'dashboard';
+    $$('.page').forEach(p => p.classList.toggle('active', p.id === 'page-' + page));
+    $$('.nav a').forEach(a => {
+      const on = a.dataset.page === page;
+      a.classList.toggle('active', on);
+      on ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current');
+    });
+    $('#pageTitle').textContent = PAGES[page][0];
+    $('#pageSub').textContent = PAGES[page][1];
+    store.set('page', page);
+    closeMobile();
+    window.scrollTo(0, 0);
+  }
+  document.addEventListener('click', e => {
+    const t = e.target.closest('[data-page],[data-go]');
+    if (!t) return;
+    e.preventDefault();
+    go(t.dataset.page || t.dataset.go);
+  });
+
+  /* ---------- Liên kết đổi giao diện ---------- */
+  // Apps Script chạy trong iframe -> phải điều hướng cửa sổ cha (_top) tới ?mau=nimbus-<theme>; APP_BASE do trang chính đặt (scriptlet không chạy trong file include)
+  $$('[data-theme]').forEach(a => {
+    const k = a.dataset.theme;
+    a.href = (window.APP_BASE || '') + '?mau=nimbus-' + k;
+    a.target = '_top';
+    if (k === window.APP_THEME) a.classList.add('on');
+  });
+  const all = $('#allBtn'); // về trang chọn 10 mẫu
+  all.href = window.APP_BASE || '/';
+  all.target = '_top';
+
+  /* ---------- Biểu đồ đường/vùng (SVG thuần) ---------- */
+  function renderChart(el, series) {
+    if (!series || !series.length) { el.innerHTML = ''; return; }
+    const W = 640, H = 280, P = { l: 44, r: 16, t: 16, b: 30 };
+    const iw = W - P.l - P.r, ih = H - P.t - P.b;
+    const max = Math.ceil(Math.max.apply(null, series.map(d => d.v)) / 20) * 20 || 20;
+    const x = i => P.l + (series.length === 1 ? iw / 2 : i * iw / (series.length - 1));
+    const y = v => P.t + ih - (v / max) * ih;
+
+    let line = 'M' + x(0) + ',' + y(series[0].v);
+    for (let i = 1; i < series.length; i++) {
+      const mx = (x(i - 1) + x(i)) / 2;
+      line += ' C' + mx + ',' + y(series[i - 1].v) + ' ' + mx + ',' + y(series[i].v) + ' ' + x(i) + ',' + y(series[i].v);
+    }
+    const area = line + ' L' + x(series.length - 1) + ',' + (P.t + ih) + ' L' + x(0) + ',' + (P.t + ih) + ' Z';
+    const ticks = [0, .25, .5, .75, 1].map(t => Math.round(max * t));
+    const gid = 'g' + Math.random().toString(36).slice(2, 8);
+
+    el.innerHTML =
+      '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Biểu đồ doanh thu theo tháng">' +
+      '<defs><linearGradient id="' + gid + '" x1="0" y1="0" x2="0" y2="1">' +
+      '<stop offset="0" style="stop-color:var(--primary);stop-opacity:.30"/><stop offset="1" style="stop-color:var(--primary);stop-opacity:0"/></linearGradient></defs>' +
+      '<g class="grid">' + ticks.map(t => '<line x1="' + P.l + '" x2="' + (W - P.r) + '" y1="' + y(t) + '" y2="' + y(t) + '"/><text x="' + (P.l - 10) + '" y="' + (y(t) + 4) + '" text-anchor="end">' + t + '</text>').join('') + '</g>' +
+      '<path d="' + area + '" fill="url(#' + gid + ')"/>' +
+      '<path class="line" d="' + line + '"/>' +
+      '<g>' + series.map((d, i) => '<text x="' + x(i) + '" y="' + (H - 8) + '" text-anchor="middle">' + esc(d.m) + '</text>').join('') + '</g>' +
+      '<line class="cursor" x1="0" x2="0" y1="' + P.t + '" y2="' + (P.t + ih) + '"/><circle class="pt" r="5" cx="0" cy="0"/>' +
+      '</svg><div class="ctip"></div>';
+
+    const svg = $('svg', el), ct = $('.ctip', el), cur = $('.cursor', el), pt = $('.pt', el);
+    svg.addEventListener('mousemove', ev => {
+      const r = svg.getBoundingClientRect();
+      const px = (ev.clientX - r.left) / r.width * W;
+      const i = Math.max(0, Math.min(series.length - 1, Math.round((px - P.l) / iw * (series.length - 1))));
+      const cx = x(i), cy = y(series[i].v);
+      cur.setAttribute('x1', cx); cur.setAttribute('x2', cx);
+      pt.setAttribute('cx', cx); pt.setAttribute('cy', cy);
+      svg.classList.add('hover');
+      ct.innerHTML = '<b>' + series[i].v + ' triệu</b>' + esc(series[i].m);
+      ct.style.left = (cx / W * r.width) + 'px';
+      ct.style.top = (cy / H * r.height) + 'px';
+      ct.style.opacity = 1;
+    });
+    svg.addEventListener('mouseleave', () => { svg.classList.remove('hover'); ct.style.opacity = 0; });
+  }
+
+  /* ---------- Dữ liệu & hiển thị ---------- */
+  const state = { data: null, range: 12, status: 'all', q: '' };
+  const PILL = { 'Hoàn tất': 'ok', 'Đang xử lý': 'warn', 'Đã hủy': 'bad' };
+  const trow = r =>
+    '<tr><td><b>' + esc(r.id) + '</b></td>' +
+    '<td><div class="who"><span class="avatar sm">' + esc(initials(r.name)) + '</span>' + esc(r.name) + '</div></td>' +
+    '<td class="num">' + esc(r.amount) + '</td>' +
+    '<td><span class="pill ' + (PILL[r.status] || '') + '">' + esc(r.status) + '</span></td></tr>';
+
+  function renderMainChart() {
+    renderChart($('#chartMain'), state.data.chart.slice(-state.range));
+  }
+  function renderOrders() {
+    const q = state.q.trim().toLowerCase();
+    const rows = state.data.rows.filter(r =>
+      (state.status === 'all' || r.status === state.status) &&
+      (!q || (r.id + ' ' + r.name).toLowerCase().indexOf(q) > -1));
+    $('#tblOrders').innerHTML = rows.length ? rows.map(trow).join('') : '<tr><td class="empty" colspan="4">Không tìm thấy đơn hàng phù hợp.</td></tr>';
+    $('#orderCount').textContent = rows.length + ' đơn hàng';
+  }
+
+  function paint(d) {
+    state.data = d;
+    if (d.user) {
+      $('#uName').textContent = d.user.name;
+      $('#uMail').textContent = d.user.email;
+      $('#uAvatar').textContent = initials(d.user.name).slice(0, 2);
+    }
+    $('#stats').innerHTML = d.stats.map(s =>
+      '<div class="card stat"><div class="top"><span class="k">' + esc(s.k) + '</span>' +
+      '<span class="ico"><svg class="i"><use href="#' + esc(s.icon) + '"/></svg></span></div>' +
+      '<div class="v">' + esc(s.v) + '</div>' +
+      '<div class="foot"><span class="delta ' + (s.up ? 'up' : 'down') + '"><svg class="i"><use href="#i-' + (s.up ? 'up' : 'down') + '"/></svg>' + esc(s.d) + '</span>so với tháng trước</div></div>'
+    ).join('');
+    $('#feed').innerHTML = d.feed.map(f => '<li><span class="pt"></span><div><b>' + esc(f.t) + '</b><small>' + esc(f.time) + '</small></div></li>').join('');
+    renderMainChart();
+    renderChart($('#chartReport'), d.chart);
+    $('#tblRecent').innerHTML = d.rows.slice(0, 5).map(trow).join('');
+    renderOrders();
+    $('#custGrid').innerHTML = d.rows.map(r =>
+      '<div class="card cust"><span class="avatar lg">' + esc(initials(r.name)) + '</span>' +
+      '<div><b>' + esc(r.name) + '</b><small>Đơn gần nhất ' + esc(r.id) + '</small></div>' +
+      '<span class="amt">' + esc(r.amount) + ' đ</span></div>').join('');
+  }
+
+  function load() {
+    const fail = err => { console.error(err); toast('Không tải được dữ liệu. Vui lòng tải lại trang.'); };
+    if (window.google && google.script && google.script.run) {
+      google.script.run.withSuccessHandler(paint).withFailureHandler(fail).getDashboardData();
+    } else {
+      fail(new Error('google.script.run không khả dụng'));
+    }
+  }
+
+  /* ---------- Bộ lọc, tìm kiếm, cài đặt ---------- */
+  $('#rangeChips').addEventListener('click', e => {
+    const b = e.target.closest('[data-range]');
+    if (!b || !state.data) return;
+    state.range = +b.dataset.range;
+    $$('#rangeChips .chip').forEach(c => c.classList.toggle('on', c === b));
+    renderMainChart();
+  });
+  $('#statusChips').addEventListener('click', e => {
+    const b = e.target.closest('[data-status]');
+    if (!b || !state.data) return;
+    state.status = b.dataset.status;
+    $$('#statusChips .chip').forEach(c => c.classList.toggle('on', c === b));
+    renderOrders();
+  });
+  $('#globalSearch').addEventListener('input', e => {
+    state.q = e.target.value;
+    if (!state.data) return;
+    if (state.q && !$('#page-orders').classList.contains('active')) go('orders');
+    renderOrders();
+  });
+  $('#bellBtn').addEventListener('click', () => toast('Bạn không có thông báo mới'));
+  // Gắn logic xuất file thật (Sheet/PDF) vào đây nếu cần
+  $('#exportBtn').addEventListener('click', () => toast('Đang chuẩn bị tệp báo cáo…'));
+
+  $$('.switch').forEach(sw => {
+    const key = sw.dataset.setting;
+    if (key !== 'collapsed') sw.setAttribute('aria-checked', store.get('set-' + key) === '1' ? 'true' : 'false');
+    sw.addEventListener('click', () => {
+      const on = sw.getAttribute('aria-checked') !== 'true';
+      if (key === 'collapsed') { setCollapsed(on); return; }
+      sw.setAttribute('aria-checked', String(on));
+      store.set('set-' + key, on ? '1' : '0');
+      toast(on ? 'Đã bật' : 'Đã tắt');
+    });
+  });
+
+  /* ---------- Khởi tạo ---------- */
+  applySidebar();
+  go(store.get('page') || 'dashboard');
+  load();
+  requestAnimationFrame(() => requestAnimationFrame(() => app.classList.remove('no-anim')));
+})();
+</script>

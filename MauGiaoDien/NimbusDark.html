@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- NIMBUS DARK (mẫu 06) — tối, phẳng, sắc nét, điểm nhấn xanh ngọc -->
+  <style>
+    :root{
+      color-scheme:dark;
+      --font:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+      --bg:#0a0b0f; --surface:#12141a; --surface-2:#161920; --hover:#171a21;
+      --border:#22262f; --border-strong:#343a48;
+      --text:#e8eaf0; --muted:#8e96aa;
+      --primary:#34d399; --primary-contrast:#04130d; --primary-soft:rgba(52,211,153,.12); --ring:rgba(52,211,153,.22);
+      --ok:#4ade80; --ok-soft:rgba(74,222,128,.12); --warn:#fbbf24; --warn-soft:rgba(251,191,36,.12); --bad:#fb7185; --bad-soft:rgba(251,113,133,.13); --danger:#fb7185;
+      --radius:12px; --radius-sm:9px;
+      --shadow:0 0 0 1px rgba(255,255,255,.015);
+      --shadow-sm:0 1px 2px rgba(0,0,0,.5);
+      --shadow-lg:0 24px 60px rgba(0,0,0,.65);
+      --sb-bg:#0d0f14; --sb-text:#a2aabd; --sb-title:#f2f4f8; --sb-muted:#5f677b; --sb-border:#1c1f27;
+      --sb-hover:#151820; --sb-active-bg:#171b22; --sb-active-text:#ffffff; --sb-active-icon:#34d399;
+      --brand-bg:linear-gradient(135deg,#34d399,#0ea5a4); --brand-fg:#03150e; --brand-shadow:0 0 22px rgba(52,211,153,.3);
+      --avatar-bg:linear-gradient(135deg,#2b3140,#1b1f2a); --avatar-fg:#d6dbe8;
+      --topbar-bg:rgba(10,11,15,.82);
+      --tip-bg:#eceef4; --tip-fg:#0a0b0f; --scrim:rgba(0,0,0,.65);
+      --seg-on:#222733; --shimmer:rgba(255,255,255,.05);
+    }
+  </style>
+  <?!= include('NimbusBase') ?>
+  <style>
+    /* Riêng cho Dark: nền chấm mờ, vạch nhấn bên trái mục đang chọn */
+    body{background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:22px 22px}
+    .nav a.active::before{content:"";position:absolute;left:-14px;top:11px;bottom:11px;width:3px;border-radius:0 3px 3px 0;background:var(--primary)}
+    .chart .line{filter:drop-shadow(0 0 6px rgba(52,211,153,.45))}
+    .card{box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.03)}
+    .stat .ico{border-radius:10px}
+  </style>
+</head>
+<body>
+  <?!= include('NimbusLayout') ?>
+  <script>window.APP_BASE = <?!= JSON.stringify(baseUrl) ?>; window.APP_THEME = 'dark';</script>
+  <?!= include('NimbusScript') ?>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<?!= include('NovaNen'); ?>
+<style>
+/* Trang chon mau: the doc tu bang MAU trong Code.js; hinh thu nho ve bang CSS theo khoa (.anh-<khoa>), bam de mo mau that */
+.chon { max-width: 1160px; margin: 0 auto; padding: 40px 24px 56px; }
+.chon h1 { margin: 0 0 6px; font-size: 30px; letter-spacing: -.02em; }
+.chon > p { margin: 0 0 8px; color: var(--mo); font-size: 15px; }
+.bo-ten { margin: 36px 0 16px; font-size: 18px; letter-spacing: -.01em; }
+.luoi-mau { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 18px; }
+.mau { display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--vien); border-radius: 18px; background: var(--the); color: var(--chu); text-decoration: none; box-shadow: var(--bong); transition: transform .2s, box-shadow .2s, border-color .2s; }
+.mau:hover, .mau:focus-visible { transform: translateY(-3px); border-color: var(--nhan); box-shadow: 0 12px 28px rgba(15, 23, 42, .12); }
+.mau-thong { padding: 16px 18px 18px; }
+.mau-thong b { display: flex; align-items: center; gap: 10px; font-size: 16px; }
+.so { flex: none; min-width: 30px; height: 24px; padding: 0 8px; border-radius: 999px; display: grid; place-items: center; background: var(--chu); color: var(--the); font-size: 12px; font-weight: 700; letter-spacing: .02em; }
+.mau-thong span.mo-ta { display: block; margin-top: 6px; color: var(--mo); font-size: 13.5px; }
+.mau-thong em { display: inline-block; margin-top: 10px; font-style: normal; font-weight: 600; font-size: 13px; color: var(--nhan); }
+.chon .ghi-chu { margin-top: 32px; color: var(--mo); font-size: 13.5px; }
+
+/* Hinh thu nho: sidebar (.m-sb) + cac muc (.m-muc) + khoi noi dung (.m-kh). Moi mau chi doi bien */
+.mau-anh { --sbw: 56px; --sbl: 0px; --rs: 0px; --rk: 6px; --cx: 68px; --mx: 10px; --mw: 36px; position: relative; height: 170px; background: var(--b-nen); overflow: hidden; }
+.mau-anh b { position: absolute; display: block; }
+.m-sb { left: var(--sbl); top: var(--sbl); bottom: var(--sbl); width: var(--sbw); background: var(--b-sb); border-radius: var(--rs); border-right: var(--b-vien, 0 solid); box-shadow: var(--b-bong-sb, none); }
+.mau-anh .m-r { display: none; left: 0; top: 0; bottom: 0; width: 26px; background: #0f172a; }
+.m-muc { left: var(--mx); width: var(--mw); height: 8px; border-radius: 4px; background: var(--b-muc); }
+.m-muc.on { background: var(--b-nhan); }
+.m-kh { background: var(--b-the); border-radius: var(--rk); border: var(--b-kvien, 0 solid); box-shadow: var(--b-kbong, none); }
+.m-top { left: var(--cx); right: 12px; top: 14px; height: 14px; }
+.m-c1, .m-c2, .m-c3 { top: 40px; height: 38px; }
+.m-c1 { left: var(--cx); width: 52px; }
+.m-c2 { left: calc(var(--cx) + 58px); width: 52px; }
+.m-c3 { left: calc(var(--cx) + 116px); right: 12px; }
+.m-big { left: var(--cx); right: 12px; top: 88px; bottom: 12px; }
+.anh-nova-sang { --b-nen: #f4f6fb; --b-sb: #fff; --b-vien: 1px solid #e2e8f0; --b-the: #fff; --b-muc: #e2e8f0; --b-nhan: #4f46e5; }
+.anh-nova-glass { --b-nen: linear-gradient(135deg, #1b1650, #0b1020 60%, #0a2a3a); --b-sb: rgba(255, 255, 255, .1); --b-the: rgba(255, 255, 255, .12); --b-muc: rgba(255, 255, 255, .18); --b-nhan: #7c6cff; }
+.anh-nova-noi { --sbl: 8px; --sbw: 48px; --rs: 16px; --rk: 14px; --cx: 68px; --mx: 16px; --mw: 32px; --b-nen: #eef3f0; --b-sb: #fff; --b-bong-sb: 0 6px 18px rgba(20, 60, 40, .15); --b-the: #fff; --b-muc: #e3ece7; --b-nhan: #047857; }
+.anh-nova-noi .m-muc { border-radius: 999px; }
+.anh-nova-rail { --sbw: 48px; --cx: 86px; --b-nen: #f6f7fb; --b-sb: #fff; --b-vien: 1px solid #e2e8f0; --b-the: #fff; --b-muc: #e2e8f0; --b-nhan: #2563eb; }
+.mau-anh.anh-nova-rail .m-r { display: block; }
+.anh-nova-rail .m-sb { left: 26px; }
+.anh-nova-rail .m-muc { left: 34px; width: 32px; }
+.anh-nova-module { --sbw: 48px; --cx: 68px; --b-nen: #f4f6fb; --b-sb: #fff; --b-vien: 1px solid #e2e8f0; --b-the: #fff; --b-muc: #e2e8f0; --b-nhan: #4f46e5; }
+.anh-nova-module .m-muc { height: 6px; }
+.anh-rieng { --sbw: 48px; --cx: 68px; --b-nen: #f6f8fd; --b-sb: #eef3fb; --b-vien: 1px solid #dbe4f3; --b-the: #fff; --b-muc: #dbe4f3; --b-nhan: #4a7bd0; }
+.anh-rieng .m-muc { height: 6px; }
+.anh-nimbus-light { --b-nen: #f5f6fb; --b-sb: #fff; --b-vien: 1px solid #e8eaf2; --b-the: #fff; --b-muc: #e8eaf2; --b-nhan: #5555e8; --rk: 8px; }
+.anh-nimbus-dark { --b-nen: #0a0b0f; --b-sb: #0d0f14; --b-vien: 1px solid #1c1f27; --b-the: #12141a; --b-muc: #22262f; --b-nhan: #34d399; --rk: 5px; }
+.anh-nimbus-aurora { --sbl: 8px; --sbw: 48px; --rs: 16px; --rk: 12px; --cx: 68px; --mx: 16px; --mw: 32px; --b-nen: linear-gradient(135deg, #3b1f9a, #0c6a7a 55%, #8a2a6a); --b-sb: rgba(255, 255, 255, .16); --b-the: rgba(255, 255, 255, .13); --b-muc: rgba(255, 255, 255, .22); --b-nhan: #b0a4ff; }
+.anh-nimbus-ocean { --b-nen: #eef4fb; --b-sb: #0b2545; --b-the: #fff; --b-muc: rgba(255, 255, 255, .22); --b-nhan: #1d6fe5; --rk: 8px; }
+.anh-nimbus-sunset { --rk: 14px; --b-nen: #fbf5ec; --b-sb: #f6ebdc; --b-vien: 1px solid #ecdcc6; --b-the: #fffdf9; --b-muc: #e8d4ba; --b-nhan: #d9480f; }
+.anh-nimbus-mono { --rk: 3px; --b-nen: #f3f3ef; --b-sb: #fff; --b-vien: 1px solid #111; --b-the: #fff; --b-kvien: 1px solid #111; --b-kbong: 2px 2px 0 #111; --b-muc: #d6d6cf; --b-nhan: #111; }
+</style>
+</head>
+<body>
+<main class="chon">
+  <h1>Chọn mẫu giao diện</h1>
+  <p>12 phong cách hiện đại, đều có sidebar bên trái thu gọn / mở rộng được. Bấm vào mẫu để xem bản chạy thật, hoặc nói số mẫu (ví dụ "lấy mẫu 07").</p>
+
+  <? Object.keys(BO).forEach(function (bo) { ?>
+  <h2 class="bo-ten"><?= BO[bo] ?></h2>
+  <div class="luoi-mau">
+    <? MAU.filter(function (m) { return m.bo === bo; }).forEach(function (m) { ?>
+    <a class="mau" target="_top" href="<?= baseUrl ?>?mau=<?= m.khoa ?>">
+      <div class="mau-anh anh-<?= m.khoa ?>" aria-hidden="true">
+        <b class="m-r"></b><b class="m-sb"></b>
+        <b class="m-muc on" style="top:44px"></b><b class="m-muc" style="top:62px"></b><b class="m-muc" style="top:80px"></b>
+        <b class="m-kh m-top"></b><b class="m-kh m-c1"></b><b class="m-kh m-c2"></b><b class="m-kh m-c3"></b><b class="m-kh m-big"></b>
+      </div>
+      <div class="mau-thong"><b><span class="so"><?= m.so ?></span><?= m.bo ?> · <?= m.ten ?></b><span class="mo-ta"><?= m.mota ?></span><em>Xem mẫu này</em></div>
+    </a>
+    <? }); ?>
+  </div>
+  <? }); ?>
+
+  <p class="ghi-chu">Trong mẫu: nút ở thanh trên (hoặc cuối sidebar) để thu gọn / mở rộng; trên điện thoại sidebar thành ngăn kéo. Trạng thái được nhớ theo trình duyệt. Ở mọi mẫu có nút về trang này.</p>
+</main>
+</body>
+</html>

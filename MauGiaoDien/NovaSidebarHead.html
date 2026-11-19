@@ -1,0 +1,8 @@
+<script>
+// Chay TRUOC lan ve dau tien: ap trang thai thu gon da luu de trang khong nhay luc tai
+(function () {
+  var h = document.documentElement;
+  try { if (localStorage.getItem('mau.sidebar') === '1') h.setAttribute('data-thu-gon', '1'); } catch (e) {}
+  requestAnimationFrame(function () { requestAnimationFrame(function () { h.classList.add('san-sang'); }); }); // sau khi ve xong moi bat hieu ung chuyen dong
+})();
+</script>

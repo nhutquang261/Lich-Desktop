@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- MAU 12 — CUA TOI: tong hop thiet ke giao dien cua app QuanLyTaiChinh (menu 3 cap, thanh icon, 8 giao dien, mau chu dao, co chu) -->
+<?!= include('RiengStyle'); ?>
+</head>
+<body>
+<?!= include('RiengIcon'); ?>
+<div class="menu-nen" id="menu-nen" hidden></div>
+
+<aside class="menu-ngan" id="menu-ngan" aria-label="Menu bên">
+  <div class="menu-dau">
+    <button type="button" class="menu-thu" id="nut-thu-gon" aria-label="Thu gọn / mở rộng menu"><span class="w"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-menu"/></svg></span></button>
+    <span>Quản Lý Tài Chính</span>
+  </div>
+  <nav class="menu-ds" id="menu-ds" aria-label="Các mục"></nav>
+  <div class="menu-chan" id="menu-chan"></div>
+</aside>
+
+<div class="khung-chinh">
+  <header class="app-header">
+    <button type="button" class="menu-nut" id="nut-ngan" aria-label="Mở menu"><span class="w"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-menu"/></svg></span></button>
+    <div class="app-trang"><span class="w"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-home"/></svg></span>HOME <span aria-hidden="true">›</span> <b id="ten-trang"></b></div>
+    <span class="cach"></span>
+    <label class="app-tim"><span class="w"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-tim"/></svg></span><input id="o-tim" type="search" placeholder="Tìm kiếm tất cả các bảng" aria-label="Tìm kiếm"><kbd>Ctrl K</kbd></label>
+    <button type="button" class="nut-nhanh" id="nut-doi-gd"></button>
+    <button type="button" class="nut-nhanh" id="nut-cai-dat" aria-label="Tùy chỉnh giao diện" title="Tùy chỉnh giao diện"><span class="w"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-caidat"/></svg></span></button>
+    <a class="doi-mau" target="_top" href="<?= baseUrl ?>">Đổi mẫu</a>
+  </header>
+  <main class="noi-dung" id="noi-dung"></main>
+</div>
+<div class="thong-bao" id="thong-bao" role="status" hidden></div>
+
+<?!= include('RiengScript'); ?>
+</body>
+</html>

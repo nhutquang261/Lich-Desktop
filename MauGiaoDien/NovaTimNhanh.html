@@ -1,0 +1,77 @@
+<!-- Hop tim nhanh module (Ctrl+K / bam o tim): loc tat ca muc cua MENU (khong dau, khong phan biet hoa thuong), mui ten chon, Enter mo, Esc dong; o trong = "Gan day" roi toan bo theo nhom.
+     Dung window.NovaSB do NovaSidebarScript dat (MENU, tra, chon, gan) nen goi khoiTao() SAU script do. -->
+<style>
+.tn[hidden] { display: none; }
+.tn { position: fixed; inset: 0; z-index: 90; display: grid; justify-items: center; align-items: start; padding: 12vh 16px 16px; }
+.tn-nen { position: absolute; inset: 0; background: rgba(15, 23, 42, .45); }
+.tn-hop { position: relative; width: min(560px, 100%); max-height: 70vh; display: flex; flex-direction: column; overflow: hidden; border-radius: 16px; background: var(--the); color: var(--chu); border: 1px solid var(--vien); box-shadow: 0 24px 60px rgba(15, 23, 42, .3); }
+.tn-o { display: flex; align-items: center; gap: 10px; padding: 0 16px; height: 56px; flex: none; border-bottom: 1px solid var(--vien); color: var(--mo); }
+.tn-o input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; font: inherit; font-size: 16px; color: var(--chu); }
+.tn-ds { overflow-y: auto; padding: 8px; }
+.tn-nhom { padding: 10px 10px 4px; font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--mo); }
+.tn-muc { display: flex; align-items: center; gap: 12px; width: 100%; padding: 10px 12px; border-radius: 10px; text-align: left; }
+.tn-muc small { margin-left: auto; color: var(--mo); font-size: 12px; }
+.tn-muc[aria-selected="true"] { background: var(--sb-act-nen); color: var(--sb-act-chu); }
+.tn-muc .ic { width: 18px; height: 18px; }
+.tn-rong { padding: 28px 12px; text-align: center; color: var(--mo); }
+.tn-chan { flex: none; padding: 8px 16px; border-top: 1px solid var(--vien); color: var(--mo); font-size: 12px; }
+</style>
+<div class="tn" id="tn" hidden>
+  <div class="tn-nen" data-tn-dong></div>
+  <div class="tn-hop" role="dialog" aria-modal="true" aria-label="Tìm nhanh module">
+    <div class="tn-o"><svg class="ic" aria-hidden="true"><use href="#i-tim"/></svg><input id="tn-o" type="text" placeholder="Gõ tên module…" autocomplete="off" role="combobox" aria-expanded="true" aria-controls="tn-ds" aria-autocomplete="list"></div>
+    <div class="tn-ds" id="tn-ds" role="listbox" aria-label="Kết quả"></div>
+    <div class="tn-chan">↑ ↓ chọn · Enter mở · Esc đóng</div>
+  </div>
+</div>
+<script>
+var NovaTimNhanh = (function () {
+  var goc = null, ds = [], chon = 0;
+  function khong(s) { return String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase(); }
+  function mo() { return !document.getElementById('tn').hidden; }
+  function muc(id) { var t = NovaSB.tra[id], n = NovaSB.MENU.filter(function (x) { return x.id === t.nhom; })[0]; return { id: id, ten: t.ten, icon: t.icon, nhom: n.ten }; }
+  function ve() {
+    var q = khong(document.getElementById('tn-o').value.trim()), dau = [], html = '';
+    ds = [];
+    function them(m) { ds.push(m); return '<button type="button" class="tn-muc" role="option" id="tn-m' + (ds.length - 1) + '" data-i="' + (ds.length - 1) + '" aria-selected="false"><svg class="ic" aria-hidden="true"><use href="#i-' + m.icon + '"/></svg>' + m.ten + '<small>' + m.nhom + '</small></button>'; }
+    if (q) {
+      NovaSB.MENU.forEach(function (n) { n.muc.forEach(function (m) { if (khong(m.ten).indexOf(q) !== -1 || khong(n.ten).indexOf(q) !== -1) dau.push(muc(m.id)); }); });
+      html = dau.length ? dau.map(them).join('') : '<div class="tn-rong">Không có module nào khớp “' + document.getElementById('tn-o').value.replace(/[<>&"]/g, '') + '”</div>';
+    } else {
+      var gan = NovaSB.gan();
+      if (gan.length) html += '<div class="tn-nhom">Gần đây</div>' + gan.map(function (id) { return them(muc(id)); }).join('');
+      NovaSB.MENU.forEach(function (n) { html += '<div class="tn-nhom">' + n.ten + '</div>' + n.muc.map(function (m) { return them(muc(m.id)); }).join(''); });
+    }
+    document.getElementById('tn-ds').innerHTML = html;
+    chon = 0; danhDau();
+  }
+  function danhDau() {
+    document.querySelectorAll('#tn-ds .tn-muc').forEach(function (b, i) { b.setAttribute('aria-selected', String(i === chon)); });
+    var b = document.getElementById('tn-m' + chon);
+    if (b) { b.scrollIntoView({ block: 'nearest' }); document.getElementById('tn-o').setAttribute('aria-activedescendant', b.id); } else document.getElementById('tn-o').removeAttribute('aria-activedescendant');
+  }
+  function dong() { document.getElementById('tn').hidden = true; if (goc && goc.focus) goc.focus({ preventScroll: true }); }
+  function moHop() { goc = document.activeElement; document.getElementById('tn').hidden = false; var o = document.getElementById('tn-o'); o.value = ''; ve(); o.focus(); }
+  function vao(i) { if (!ds[i]) return; document.getElementById('tn').hidden = true; NovaSB.chon(ds[i].id); goc = null; }
+  function khoiTao() {
+    document.addEventListener('keydown', function (e) {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); if (mo()) dong(); else moHop(); return; }
+      if (!mo()) return;
+      if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); dong(); }
+      else if (e.key === 'ArrowDown') { e.preventDefault(); if (ds.length) { chon = (chon + 1) % ds.length; danhDau(); } }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); if (ds.length) { chon = (chon - 1 + ds.length) % ds.length; danhDau(); } }
+      else if (e.key === 'Enter') { e.preventDefault(); vao(chon); }
+      else if (e.key === 'Tab') { e.preventDefault(); } // giu focus trong hop
+    }, true);
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('[data-tn-mo]')) { moHop(); return; }
+      if (!mo()) return;
+      if (e.target.closest('[data-tn-dong]')) { dong(); return; }
+      var b = e.target.closest('#tn-ds .tn-muc'); if (b) vao(+b.getAttribute('data-i'));
+    });
+    document.addEventListener('mousemove', function (e) { var b = mo() && e.target.closest('#tn-ds .tn-muc'); if (b && +b.getAttribute('data-i') !== chon) { chon = +b.getAttribute('data-i'); danhDau(); } });
+    document.getElementById('tn-o').addEventListener('input', ve);
+  }
+  return { khoiTao: khoiTao };
+})();
+</script>
